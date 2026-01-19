@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For you ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    background: radial-gradient(circle at top, #3b0a1a, #140008);
+    overflow: hidden;
+    font-family: monospace;
+    color: #ff6f9f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* INTRO */
+#intro {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #4a0f24, #140008);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: opacity 1.8s ease;
+    animation: pulseBackground 4s infinite alternate;
+}
+
+@keyframes pulseBackground {
+    0% { background: radial-gradient(circle at center, #4a0f24, #140008); }
+    50% { background: radial-gradient(circle at center, #5b0f34, #200010); }
+    100% { background: radial-gradient(circle at center, #4a0f24, #140008); }
+}
+
+#intro.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#intro h1 {
+    font-family: 'Georgia', serif;
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+    animation: blinkText 2s infinite;
+}
+
+@keyframes blinkText {
+    0%,100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* BOTONES */
+.intro-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 90%;
+}
+
+.intro-buttons button {
+    padding: 14px 32px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    white-space: nowrap;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#yesBtn {
+    background: #ff5c8a;
+    color: white;
+}
+
+#noBtn {
+    background: #ffd1dc;
+    color: #a01445;
+    text-align: center;
+}
+
+/* CONTENEDOR */
+#wrapper {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeWrapper 2s forwards;
+}
+
+@keyframes fadeWrapper {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* MENSAJE SUPERIOR */
+#top-message {
+    font-family: 'Georgia', serif;
+    font-size: 28px;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeIn 4s forwards;
+}
+
+/* CORAZÓN */
+#container {
+    white-space: pre;
+    font-size: 36px;
+    line-height: 1.05;
+    animation: pulse 2.8s infinite ease-in-out, glow 1.8s infinite alternate;
+}
+
+/* TEXTO INFERIOR */
+#love {
+    margin-top: 32px;
+    font-family: 'Georgia', serif;
+    font-size: 36px;
+    opacity: 0;
+    animation: fadeIn 4s forwards;
+    animation-delay: 3s;
+}
+
+/* MENSAJE SECRETO */
+#secret {
+    margin-top: 16px;
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    opacity: 0;
+    transition: opacity 2s;
+    text-shadow: 0 0 12px #ff9dbb;
+}
+
+/* ESTRELLAS */
+.star {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: pink;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: twinkle 5s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%,100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.starBig {
+    width: 12px;
+    height: 12px;
+    opacity: 0.8;
+    animation: twinkleBig 6s infinite ease-in-out;
+}
+
+@keyframes twinkleBig {
+    0%,100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+/* TULIPANES */
+.tulip {
+    position: absolute;
+    font-size: 44px;
+    opacity: 0.95;
+    text-shadow: 0 0 14px #b0124d;
+    transform-origin: bottom center;
+}
+
+/* ANIMACION TULIPANES */
+@keyframes sway {
+    0% { transform: translate(0,0) rotate(0deg); }
+    25% { transform: translate(2px,-6px) rotate(1deg); }
+    50% { transform: translate(0,-12px) rotate(-1deg); }
+    75% { transform: translate(-2px,-6px) rotate(1deg); }
+    100% { transform: translate(0,0) rotate(0deg); }
+}
+
+.tl { top: 20px; left: 20px; animation: sway 4s infinite ease-in-out; animation-delay: 0s; }
+.tr { top: 20px; right: 20px; animation: sway 4s infinite ease-in-out; animation-delay: 0.5s; }
+.bl { bottom: 20px; left: 20px; animation: sway 4s infinite ease-in-out; animation-delay: 1s; }
+.br { bottom: 20px; right: 20px; animation: sway 4s infinite ease-in-out; animation-delay: 1.5s; }
+
+/* CORAZONES INTERACTIVOS */
+.floating-heart {
+    position: absolute;
+    font-size: 36px;
+    animation: floatUp 2.4s ease-out forwards;
+    pointer-events: none;
+    text-shadow: 0 0 14px #ff9dbb;
+}
+
+/* ANIMACIONES GENERALES */
+@keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 12px #ff6f9f; }
+    to { text-shadow: 0 0 30px #ffb3cc; }
+}
+
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-120px) scale(1.5); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+    <h1>Hey Babe…<br>Do you love me?</h1>
+    <div class="intro-buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😶</button>
+    </div>
+</div>
+
+<script>
+// ESTRELLAS FONDO
+for (let i = 0; i < 150; i++) {
+    const star = document.createElement("div");
+    star.className = i % 8 === 0 ? "starBig" : "star";
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 100 + "vh";
+    star.style.animationDelay = Math.random() * 6 + "s";
+    document.body.appendChild(star);
+}
+
+// ESTRELLAS INTRO
+const introStarsCount = 30;
+const introDiv = document.getElementById("intro");
+for (let i = 0; i < introStarsCount; i++) {
+    const s = document.createElement("div");
+    s.className = "star";
+    s.style.left = Math.random() * 90 + "%";
+    s.style.top = Math.random() * 70 + "%";
+    s.style.animationDelay = Math.random() * 3 + "s";
+    introDiv.appendChild(s);
+}
+</script>
+
+<div class="tulip tl">🌷</div>
+<div class="tulip tr">🌷</div>
+<div class="tulip bl">🌷</div>
+<div class="tulip br">🌷</div>
+
+<div id="wrapper">
+    <div id="top-message">
+        Thank you for this month with you — the first of many.
+    </div>
+
+    <div id="container"></div>
+
+    <div id="love">I love you ❤️</div>
+    <div id="secret">Tap me = I miss you</div>
+</div>
+
+<script>
+const intro = document.getElementById("intro");
+const wrapper = document.getElementById("wrapper");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+let noClicks = 0;
+const noMessages = [
+    "Don’t be like that 😭",
+    "Seriously? 😮‍💨",
+    "You must be joking 😞",
+    "I don't care, I know you love me too much 😝"
+];
+
+// YES button
+yesBtn.onclick = () => {
+    intro.classList.add("hidden");
+    wrapper.style.opacity = 1;
+    const container = document.getElementById("container");
+    container.style.animation = "pulse 0.3s ease-in-out 0s 1 alternate, glow 1s infinite alternate";
+    drawHeart();
+};
+
+// NO button sequence con efecto glow
+noBtn.onclick = () => {
+    if (noClicks < noMessages.length) {
+        noBtn.innerText = noMessages[noClicks];
+        noBtn.style.transform = "scale(1.2)";
+        noBtn.style.boxShadow = "0 0 20px #ff5c8a";
+        setTimeout(() => {
+            noBtn.style.transform = "scale(1)";
+            noBtn.style.boxShadow = "none";
+        }, 500);
+        noClicks++;
+    }
+};
+
+// HEART LOGIC
+const name = "pia";
+const heart = [
+"      *****       *****      ",
+"   *********** ***********   ",
+" *************************** ",
+" *************************** ",
+" *************************** ",
+"  *************************  ",
+"   ***********************   ",
+"     *******************     ",
+"       ***************       ",
+"         ***********         ",
+"           *******           ",
+"             ***             ",
+"              *              "
+];
+
+let letter = 0;
+let line = 0;
+let taps = 0;
+
+function drawHeart() {
+    if (line >= heart.length) return;
+    let row = "";
+    for (let c of heart[line]) {
+        row += c === "*" ? name[letter++ % name.length] : " ";
+    }
+    document.getElementById("container").innerText += row + "\n";
+    line++;
+    setTimeout(drawHeart, 500);
+}
+
+// SPAWN FLOATING HEARTS
+document.addEventListener("click", spawnHeart);
+document.addEventListener("touchstart", spawnHeart);
+
+function spawnHeart(e) {
+    if (!intro.classList.contains("hidden")) return;
+    taps++;
+    const h = document.createElement("div");
+    h.className = "floating-heart";
+    h.innerText = "❤️";
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
+    h.style.left = x + "px";
+    h.style.top = y + "px";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 2400);
+    if (taps === 7) document.getElementById("secret").style.opacity = 1;
+}
+</script>
+
+</body>
+</html>
